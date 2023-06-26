@@ -13,6 +13,22 @@ class FighterService {
   checkHealth(health) {
     return !!(health >= 80 && health <= 120);
   }
+
+  getFighters(){
+    console.log(12);
+  }
+
+  createFighter(data){
+    console.log(data);
+  }
+
+  updateFighter(id, data){
+    console.log(id, data);
+  }
+
+  deleteFighter(id){
+    console.log(id);
+  }
 }
 
 const fighterService = new FighterService();

@@ -24,6 +24,22 @@ class UserService {
   checkPassword(password) {
     return !!(typeof password === 'string' && password.length >= 3);
   }
+
+  getUsers(){
+    console.log(12);
+  }
+
+  createUser(data){
+    console.log(data);
+  }
+
+  updateUser(id, data){
+    console.log(id, data);
+  }
+
+  deleteUser(id){
+    console.log(id);
+  }
 }
 
 const userService = new UserService();
