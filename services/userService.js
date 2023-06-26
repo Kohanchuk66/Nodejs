@@ -2,8 +2,8 @@ import { userRepository } from "../repositories/userRepository.js";
 
 class UserService {
   // TODO: Implement methods to work with user
-  phonePattern = "^+380\d{3}\d{2}\d{2}\d{2}$";
-  emailPattern = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@gmail.com";
+  phonePattern = new RegExp(/(?=.*\+[0-9]{3}\s?[0-9]{2}\s?[0-9]{3}\s?[0-9]{4,5}$)/gm);
+  emailPattern = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@gmail.com$");
 
   search(search) {
     const item = userRepository.getOne(search);
@@ -14,11 +14,11 @@ class UserService {
   }
 
   checkPhoneNumber(phoneNumber) {
-    return phonePattern.test(phoneNumber);
+    return this.phonePattern.test(phoneNumber);
   }
 
   checkEmail(email) {
-    return emailPattern.test(email);
+    return this.emailPattern.test(email);
   }
 
   checkPassword(password) {
@@ -26,19 +26,19 @@ class UserService {
   }
 
   getUsers(){
-    console.log(12);
+    return JSON.stringify(userRepository.getAll());
   }
 
   createUser(data){
-    console.log(data);
+    return userRepository.create(data);
   }
 
   updateUser(id, data){
-    console.log(id, data);
+    return userRepository.update(id, data);
   }
 
   deleteUser(id){
-    console.log(id);
+    return userRepository.delete(id);
   }
 }
 

@@ -15,19 +15,19 @@ class FighterService {
   }
 
   getFighters(){
-    console.log(12);
+    return JSON.stringify(fighterRepository.getAll());
   }
 
   createFighter(data){
-    console.log(data);
+    return fighterRepository.create(data);
   }
 
   updateFighter(id, data){
-    console.log(id, data);
+    return fighterRepository.update(id, data);
   }
 
   deleteFighter(id){
-    console.log(id);
+    return fighterRepository.delete(id);
   }
 }
 
