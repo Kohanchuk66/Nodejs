@@ -15,7 +15,7 @@ const createUserValid = (req, res, next) => {
     res.status(400).send({
       error: true,
       message: 'User entity to create isn’t valid'
-  });
+    });
   }
 
   if(
@@ -26,7 +26,7 @@ const createUserValid = (req, res, next) => {
       res.status(400).send({
         error: true,
         message: 'User data isn’t valid'
-    });
+      });
   }
 
   if( userService.search({email: email}) ) {
