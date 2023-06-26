@@ -14,10 +14,12 @@ router.get("/", function(req, res, next) {
 
                   if(!users){
                     res.status(404).send('Users not found');
+                    return;
                   }
 
                   if(users?.length === 0){
                     res.status(204).send('No data');
+                    return;
                   }
 
                   res.send(`Users: ${users}`);
