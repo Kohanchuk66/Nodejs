@@ -4,6 +4,7 @@ import { responseMiddleware } from "../middlewares/response.middleware.js";
 import {
   createFighterValid,
   updateFighterValid,
+  chekFighterId
 } from "../middlewares/fighter.validation.middleware.js";
 
 const router = Router();
@@ -26,7 +27,9 @@ router.get("/", function(req, res, next) {
   }
 );
 
-router.get("/:id", function(req, res, next) {
+router.get("/:id", 
+      chekFighterId,
+      function(req, res, next) {
       const fighter = fighterService.search(req.params.id);
 
       res.send(`Fighter: ${fighter}`);
@@ -43,6 +46,7 @@ router.post("/",
             );
 
 router.put("/:id",
+            chekFighterId,
             updateFighterValid,
             function(req, res, next) {
               fighterService.updateFighter(req.params.id, req.body);
@@ -52,6 +56,7 @@ router.put("/:id",
           );
 
 router.delete("/:id",
+              chekFighterId,
                 function(req, res, next) {
                   fighterService.deleteFighter(req.params.id);
 

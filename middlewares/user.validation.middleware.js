@@ -16,6 +16,7 @@ const createUserValid = (req, res, next) => {
       error: true,
       message: 'User entity to create isn’t valid'
     });
+    return;
   }
 
   if(
@@ -27,6 +28,7 @@ const createUserValid = (req, res, next) => {
         error: true,
         message: 'User data isn’t valid'
       });
+      return;
   }
 
   if( userService.search({email: email}) ) {
@@ -34,6 +36,7 @@ const createUserValid = (req, res, next) => {
       error: true,
       message: 'This email is already associated with an account.'
     });
+    return;
   }
 
   if( userService.search({phoneNumber: phoneNumber}) ) {
@@ -41,6 +44,7 @@ const createUserValid = (req, res, next) => {
       error: true,
       message: 'This phone number is already associated with an account.'
     });
+    return;
   }
 
   next();
@@ -55,6 +59,7 @@ const updateUserValid = (req, res, next) => {
       error: true,
       message: 'User entity to create isn’t valid'
   });
+  return;
   }
 
   if(
@@ -66,6 +71,7 @@ const updateUserValid = (req, res, next) => {
         error: true,
         message: 'User data isn’t valid'
     });
+    return;
   }
 
   if( email && userService.search({email: email}) ) {
@@ -73,6 +79,7 @@ const updateUserValid = (req, res, next) => {
       error: true,
       message: 'This email is already associated with an account.'
     });
+    return;
   }
 
   if( phoneNumber && userService.search({phoneNumber: phoneNumber}) ) {
@@ -80,9 +87,25 @@ const updateUserValid = (req, res, next) => {
       error: true,
       message: 'This phone number is already associated with an account.'
     });
+    return;
   }
 
   next();
 };
 
-export { createUserValid, updateUserValid };
+
+const chekUserId = (req, res, next) => {
+  const user = userService.search({id: req.params.id});
+  
+  if(!user){
+    res.status(404).send({
+      error: true,
+      message: 'User not found'
+    });
+    return;
+  }
+
+  next();
+}
+
+export { createUserValid, updateUserValid, chekUserId };

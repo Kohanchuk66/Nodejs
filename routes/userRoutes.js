@@ -3,6 +3,7 @@ import { userService } from "../services/userService.js";
 import {
   createUserValid,
   updateUserValid,
+  chekUserId
 } from "../middlewares/user.validation.middleware.js";
 import { responseMiddleware } from "../middlewares/response.middleware.js";
 
@@ -26,11 +27,13 @@ router.get("/", function(req, res, next) {
                 }
           );
 
-router.get("/:id", function(req, res, next) {
-                      const user = userService.search(req.params.id);
+router.get("/:id",
+              chekUserId,
+              function(req, res, next) {
+                const user = userService.search(req.params.id);
 
-                      res.send(`User: ${user}`);
-                    }
+                   res.send(`User: ${user}`);
+              }
           );
 
 router.post("/",
@@ -43,6 +46,7 @@ router.post("/",
           );
 
 router.put("/:id",
+            chekUserId,
             updateUserValid,
             function(req, res, next) {
               userService.updateUser(req.params.id, req.body);
@@ -52,6 +56,7 @@ router.put("/:id",
           );
 
 router.delete("/:id",
+                chekUserId,
                 function(req, res, next) {
                   userService.deleteUser(req.params.id);
 

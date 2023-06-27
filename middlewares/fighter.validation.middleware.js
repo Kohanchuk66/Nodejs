@@ -75,4 +75,18 @@ const updateFighterValid = (req, res, next) => {
   next();
 };
 
-export { createFighterValid, updateFighterValid };
+const chekFighterId = (req, res, next) => {
+  const fighter = fighterService.search({id: req.params.id});
+
+  if(!fighter){
+    res.status(404).send({
+      error: true,
+      message: 'Fighter not found'
+    });
+    return;
+  }
+
+  next();
+}
+
+export { createFighterValid, updateFighterValid, chekFighterId };
